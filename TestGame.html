@@ -162,7 +162,19 @@ $(document).on(&#39;click&#39;, &#39;.hover-zone&#39;, function () {
 		SugarCube.Engine.play(passage);
 	}
 });
-&lt;/script&gt;</tw-passagedata><tw-passagedata pid="2" name="Demonic Isle" tags="" position="1025,250" size="100,100">&quot;You&#39;ve entered the Demonic Isles. The hot lava everywhere makes it too hot to stay.&quot;
+&lt;/script&gt;
+
+&lt;&lt;set $breastSizeSynonym = [&quot;very&quot;, &quot;obscurely&quot;, &quot;incredibly&quot;]&gt;&gt;
+&lt;&lt;set $breastSizeNoun = [&quot;small&quot;, &quot;normal&quot;, &quot;large&quot;]&gt;&gt;
+&lt;&lt;link &quot;Check your breast size&quot;&gt;&gt;
+	&lt;&lt;set _synonym = random(0, $breastSizeSynonym.length - 1)&gt;&gt;
+	&lt;&lt;set _noun = random(0, $breastSizeNoun.length - 1)&gt;&gt;
+    &lt;&lt;replace &quot;#result&quot;&gt;&gt;
+			You have: &lt;&lt;print $breastSizeSynonym[_synonym]  + &quot; &quot; + $breastSizeNoun[_noun]&gt;&gt; breasts.
+     &lt;&lt;/replace&gt;&gt;
+&lt;&lt;/link&gt;&gt;
+
+&lt;div id=&quot;result&quot;&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="2" name="Demonic Isle" tags="" position="1025,250" size="100,100">&quot;You&#39;ve entered the Demonic Isles. The hot lava everywhere makes it too hot to stay.&quot;
 
 [[Go back-&gt;Map]]</tw-passagedata><tw-passagedata pid="3" name="Amazonian Temple" tags="" position="1175,425" size="100,100">&quot;You&#39;ve entered the Amazonian Temple. You spot a tribe of unknown origin, their mear pressence makes you want to flee.&quot;
 
