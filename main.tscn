@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://dpdq561nl3ipd"]
+[gd_scene load_steps=35 format=3 uid="uid://dpdq561nl3ipd"]
 
 [ext_resource type="Texture2D" uid="uid://bq6k0wff4uqyl" path="res://Assets/Grass.png" id="1_1bvp3"]
 [ext_resource type="Texture2D" uid="uid://dgqlecppvy1pd" path="res://Assets/Stone.png" id="1_4c57u"]
@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://buv70n3h4ygi7" path="res://Assets/Bonfire.png" id="3_2cqfq"]
 [ext_resource type="Texture2D" uid="uid://2dwnpmxdl5k1" path="res://Assets/Border.png" id="3_7mycd"]
 [ext_resource type="Texture2D" uid="uid://twn3u6wksnij" path="res://Assets/Water.png" id="3_efxa6"]
-[ext_resource type="Script" uid="uid://dyk787fglpfaw" path="res://tileMap.gd" id="4_1bvp3"]
+[ext_resource type="Script" uid="uid://dyk787fglpfaw" path="res://Scripts/tileMap.gd" id="4_1bvp3"]
 [ext_resource type="Texture2D" uid="uid://qsun1j8tdgmp" path="res://Assets/Event.png" id="4_dg77c"]
 [ext_resource type="Texture2D" uid="uid://vq3ral86ctg0" path="res://Assets/Crown.png" id="4_yaehf"]
 [ext_resource type="Texture2D" uid="uid://cal3pou1frc25" path="res://Assets/Trap.png" id="5_074og"]
@@ -16,6 +16,22 @@
 [ext_resource type="Texture2D" uid="uid://dkud012maf4lj" path="res://Assets/Lever.png" id="8_cegan"]
 [ext_resource type="Texture2D" uid="uid://bulxihcyblakm" path="res://Assets/FishingPole.png" id="10_82xsv"]
 [ext_resource type="Texture2D" uid="uid://b0wsxbudf5g64" path="res://Assets/Boulder.png" id="13_getpj"]
+[ext_resource type="Script" uid="uid://ptfgl0klumn6" path="res://Scripts/player.gd" id="18_074og"]
+
+[sub_resource type="GDScript" id="GDScript_yaehf"]
+script/source = "extends Node2D
+
+@onready var tileMap: TileMap = $TileMap
+@onready var player: Node2D = $Player
+
+func _unhandled_input(event):
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		var mousePos = get_local_mouse_position()
+		var tilePos = tileMap.local_to_map(mousePos)
+		
+		if tileMap.get_cell_source_id(0, tilePos) != -1:
+			player.set_target(tileMap, tilePos)
+"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2cqfq"]
 texture = ExtResource("1_4c57u")
@@ -93,7 +109,7 @@ texture_region_size = Vector2i(128, 128)
 0:0/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_kek77"]
-tile_size = Vector2i(130, 130)
+tile_size = Vector2i(128, 128)
 sources/99 = SubResource("TileSetAtlasSource_5vw27")
 sources/0 = SubResource("TileSetAtlasSource_2cqfq")
 sources/98 = SubResource("TileSetAtlasSource_kek77")
@@ -111,6 +127,7 @@ sources/11 = SubResource("TileSetAtlasSource_d13ii")
 sources/12 = SubResource("TileSetAtlasSource_1u8w0")
 
 [node name="Main" type="Node2D"]
+script = SubResource("GDScript_yaehf")
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_kek77")
@@ -123,3 +140,6 @@ script = ExtResource("4_1bvp3")
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(2330, 1474)
 zoom = Vector2(0.22, 0.185)
+
+[node name="Player" type="Node2D" parent="."]
+script = ExtResource("18_074og")
