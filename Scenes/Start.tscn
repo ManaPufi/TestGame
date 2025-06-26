@@ -1,0 +1,73 @@
+[gd_scene load_steps=8 format=3 uid="uid://byn4t053cx4ou"]
+
+[ext_resource type="PackedScene" uid="uid://dafuvkfbb2t30" path="res://Maps/Forest.tscn" id="2_nt0jr"]
+[ext_resource type="PackedScene" uid="uid://1l0ts3isf6to" path="res://Scenes/player.tscn" id="2_y4ycm"]
+[ext_resource type="Script" uid="uid://4bw71triuvx2" path="res://Scripts/Triggers/Zone1-1.gd" id="3_y4ycm"]
+[ext_resource type="Script" uid="uid://dsu52u23tyxno" path="res://Scripts/Triggers/Zone1-2.gd" id="4_1lxxj"]
+[ext_resource type="Script" uid="uid://bw23cuo5ih63f" path="res://Scripts/Triggers/Zone2-1.gd" id="5_lmkek"]
+[ext_resource type="Script" uid="uid://co5ei1uodi35u" path="res://Scripts/Triggers/Zone_2_2.gd" id="6_035le"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nt0jr"]
+size = Vector2(128, 128)
+
+[node name="Start" type="Node2D"]
+
+[node name="Forest" parent="." instance=ExtResource("2_nt0jr")]
+
+[node name="Player" parent="." instance=ExtResource("2_y4ycm")]
+position = Vector2(1728, -448)
+
+[node name="Camera\'s" type="Node" parent="."]
+
+[node name="Zone1" type="Camera2D" parent="Camera\'s"]
+position = Vector2(1024, -128)
+zoom = Vector2(0.5, 0.42)
+
+[node name="Zone2" type="Camera2D" parent="Camera\'s"]
+position = Vector2(-1152, -128)
+enabled = false
+zoom = Vector2(0.5, 0.42)
+
+[node name="Zone3" type="Camera2D" parent="Camera\'s"]
+position = Vector2(-1152, 1344)
+enabled = false
+zoom = Vector2(0.5, 0.39)
+
+[node name="Triggers" type="Node" parent="."]
+
+[node name="Area1-1" type="Area2D" parent="Triggers"]
+position = Vector2(-64, -64)
+script = ExtResource("3_y4ycm")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Area1-1"]
+shape = SubResource("RectangleShape2D_nt0jr")
+
+[node name="Area1-2" type="Area2D" parent="Triggers"]
+position = Vector2(-64, 64)
+script = ExtResource("4_1lxxj")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Area1-2"]
+shape = SubResource("RectangleShape2D_nt0jr")
+
+[node name="Area2-1" type="Area2D" parent="Triggers"]
+position = Vector2(-2112, 576)
+script = ExtResource("5_lmkek")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Area2-1"]
+shape = SubResource("RectangleShape2D_nt0jr")
+
+[node name="Area2-2" type="Area2D" parent="Triggers"]
+position = Vector2(-1984, 576)
+script = ExtResource("6_035le")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Area2-2"]
+shape = SubResource("RectangleShape2D_nt0jr")
+
+[connection signal="body_entered" from="Triggers/Area1-1" to="Triggers/Area1-1" method="_on_body_entered"]
+[connection signal="body_entered" from="Triggers/Area1-2" to="Triggers/Area1-2" method="_on_body_entered"]
+[connection signal="body_entered" from="Triggers/Area2-1" to="Triggers/Area2-1" method="_on_body_entered"]
+[connection signal="body_entered" from="Triggers/Area2-2" to="Triggers/Area2-2" method="_on_body_entered"]
